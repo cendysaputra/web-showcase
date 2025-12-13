@@ -79,9 +79,9 @@ const LetterGlitch = ({
     const width = window.innerWidth;
     const height = window.innerHeight;
 
-    // Fill with black immediately before any resize operation
+    // Fill with dark background immediately before any resize operation
     if (context.current) {
-      context.current.fillStyle = '#000000';
+      context.current.fillStyle = '#1b1b1b';
       context.current.fillRect(0, 0, canvas.width, canvas.height);
     }
 
@@ -94,7 +94,7 @@ const LetterGlitch = ({
     if (context.current) {
       context.current.setTransform(dpr, 0, 0, dpr, 0, 0);
       // Fill with dark background immediately after resize
-      context.current.fillStyle = '#000000';
+      context.current.fillStyle = '#1b1b1b';
       context.current.fillRect(0, 0, width, height);
     }
 
@@ -109,7 +109,7 @@ const LetterGlitch = ({
     const ctx = context.current;
 
     // Fill with dark background instead of clearing
-    ctx.fillStyle = '#000000';
+    ctx.fillStyle = '#1b1b1b';
     ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
 
     ctx.font = `${fontSize}px monospace`;
@@ -209,17 +209,17 @@ const LetterGlitch = ({
   }, [glitchSpeed, smooth]);
 
   return (
-    <div className="relative w-screen h-screen bg-black overflow-hidden" style={{ backgroundColor: '#000000' }}>
+    <div className="relative w-screen h-screen overflow-hidden" style={{ backgroundColor: '#1b1b1b' }}>
       <canvas
         ref={canvasRef}
         className="absolute inset-0 w-full h-full block"
-        style={{ display: 'block', backgroundColor: '#000000' }}
+        style={{ display: 'block', backgroundColor: '#1b1b1b' }}
       />
       {outerVignette && (
         <div
           className="absolute inset-0 w-full h-full pointer-events-none"
           style={{
-            background: 'radial-gradient(ellipse 40% 50% at center, transparent 0%, rgba(0,0,0,0.3) 20%, rgba(0,0,0,0.7) 40%, rgba(0,0,0,0.95) 60%, rgb(0,0,0) 80%)'
+            background: 'radial-gradient(circle at center, transparent 20%, rgb(0,0,0) 100%)'
           }}
         ></div>
       )}
