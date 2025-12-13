@@ -1,16 +1,23 @@
 import Squares from './components/Squares'
+import Header from './components/Header'
 
 function App() {
   return (
-    <div className="fixed inset-0 w-full h-full overflow-hidden">
+    <>
+      {/* Background Grid */}
       <Squares
-        speed={0.1}
+        speed={0.5}
         squareSize={40}
         direction='down'
         borderColor='#FFECE8'
         hoverFillColor='#FFECE8'
       />
-    </div>
+
+      {/* Konten utama - atas background */}
+      <div className="relative">
+        <Header />
+      </div>
+    </>
   )
 }
 

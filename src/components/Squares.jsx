@@ -150,8 +150,13 @@ const Squares = ({
         width: '100vw',
         height: '100vh',
         display: 'block',
-        border: 'none'
+        border: 'none',
+        userSelect: 'none',
+        WebkitUserSelect: 'none',
+        MozUserSelect: 'none',
+        zIndex: 1
       }}
+      onContextMenu={(e) => e.preventDefault()}
     />
   );
 };
