@@ -1,4 +1,13 @@
-function Footer() {
+function Footer({ onOpenPopup }) {
+  const handleInfoClick = (e) => {
+    const rect = e.target.getBoundingClientRect()
+    const position = {
+      x: rect.left + rect.width / 2,
+      y: rect.top + rect.height / 2
+    }
+    onOpenPopup(position)
+  }
+
   return (
     <div
       style={{
@@ -41,14 +50,34 @@ function Footer() {
             font-size: 16px;
           }
         }
+        .info-footer {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+        }
+        .info-link {
+          cursor: pointer;
+          transition: opacity 0.3s ease;
+        }
+        .info-link:hover {
+          opacity: 0.7;
+        }
+        .footer-divider {
+          margin: 0;
+          padding: 0;
+        }
       `}</style>
       <div className="footer-container">
         <p className="footer-text">
           © 2025 All rights reserved
         </p>
-        <p className="footer-text">
-          HelloWorld
-        </p>
+        <div className="info-footer">
+          <p className="footer-text">HelloWorld</p>
+          <p className="footer-text footer-divider">|</p>
+          <p className="footer-text info-link" onClick={handleInfoClick}>
+            What is an Ruang Artefak?
+          </p>
+        </div>
       </div>
     </div>
   )

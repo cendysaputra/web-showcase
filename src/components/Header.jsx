@@ -28,7 +28,7 @@ const Header = () => {
       top: 0,
       left: 0,
       right: 0,
-      zIndex: 100,
+      zIndex: 1000,
       backgroundColor: 'transparent'
     }}>
       <style>{`
@@ -271,7 +271,7 @@ const Header = () => {
         {/* Desktop Nav */}
         <nav className="desktop-nav">
           <a href="#home" className="menu-link" style={linkStyle}>Home</a>
-          <a href="#about" className="menu-link" style={linkStyle}>About Us</a>
+          <a href="#about" className="menu-link" style={linkStyle}>About</a>
           <a href="#portfolio" className="menu-link" style={linkStyle}>Portfolio</a>
           <a href="#kontak" className="menu-link" style={linkStyle}>Kontak</a>
         </nav>

@@ -3,16 +3,25 @@ import DotGrid from './components/DotGrid'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import cendySaputraLogo from './assets/images/Cendy Saputra.svg'
+import scene7 from './assets/images/Scene 7.jpg'
 
 function App() {
   const [showPopup, setShowPopup] = useState(false)
+  const [popupOrigin, setPopupOrigin] = useState({ x: 0, y: 0 })
+  const [isClosing, setIsClosing] = useState(false)
 
-  const handleOpenPopup = () => {
+  const handleOpenPopup = (position) => {
+    setPopupOrigin(position)
+    setIsClosing(false)
     setShowPopup(true)
   }
 
   const handleClosePopup = () => {
-    setShowPopup(false)
+    setIsClosing(true)
+    setTimeout(() => {
+      setShowPopup(false)
+      setIsClosing(false)
+    }, 400)
   }
 
   return (
@@ -22,30 +31,32 @@ function App() {
         <div
           style={{
             position: 'fixed',
-            bottom: '20px',
+            bottom: '60px',
             right: '20px',
-            zIndex: 9999,
-            animation: 'slideInRight 0.5s cubic-bezier(0.77, 0, 0.175, 1)'
+            zIndex: 9999
           }}
         >
           <div
             style={{
               backgroundColor: '#fff',
-              borderRadius: '20px',
-              padding: '30px',
+              borderRadius: '16px',
+              padding: '20px',
               maxWidth: '400px',
               width: '100%',
-              boxShadow: '0 10px 40px rgba(0, 0, 0, 0.2)',
               position: 'relative',
-              border: '2px solid #1b1b1b'
+              border: '2px solid #1b1b1b',
+              transformOrigin: `calc(100% - ${window.innerWidth - popupOrigin.x}px) calc(100% + 20px + ${window.innerHeight - popupOrigin.y}px)`,
+              animation: isClosing
+                ? 'macCloseAnimation 0.4s cubic-bezier(0.55, 0.055, 0.675, 0.19) forwards'
+                : 'macOpenAnimation 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards'
             }}
           >
             <button
               onClick={handleClosePopup}
               style={{
                 position: 'absolute',
-                top: '15px',
-                right: '15px',
+                top: '4px',
+                right: '8px',
                 background: 'none',
                 border: 'none',
                 fontSize: '24px',
@@ -63,42 +74,15 @@ function App() {
             <p
               style={{
                 fontFamily: "'Mona Sans', sans-serif",
-                fontSize: '14px',
+                fontSize: '13px',
                 lineHeight: '1.6',
                 color: '#333',
-                margin: '0 0 20px 0',
-                paddingRight: '20px'
+                margin: '0',
+                paddingRight: '14px'
               }}
             >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-              exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+               Every completed project is a story worth recording. The Artifact Room was born from my desire to celebrate that process. Here, you'll see the final results, as well as how I think and experiment through visual art.
             </p>
-            <button
-              onClick={handleClosePopup}
-              style={{
-                width: '100%',
-                padding: '12px 30px',
-                backgroundColor: '#FFD700',
-                border: '2px solid #1b1b1b',
-                borderRadius: '50px',
-                fontFamily: "'Mona Sans', sans-serif",
-                fontSize: '16px',
-                fontWeight: 600,
-                cursor: 'pointer',
-                transition: 'all 0.3s ease'
-              }}
-              onMouseEnter={(e) => {
-                e.target.style.backgroundColor = '#1b1b1b'
-                e.target.style.color = '#fff'
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.backgroundColor = '#FFD700'
-                e.target.style.color = '#000'
-              }}
-            >
-              Oke, Siap!
-            </button>
           </div>
         </div>
       )}
@@ -139,14 +123,19 @@ function App() {
         {/* Hero Banner */}
         <div
           style={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            zIndex: 10,
-            pointerEvents: 'none'
+            position: 'relative',
+            height: '100vh',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 10
           }}
         >
+          <div
+            style={{
+              pointerEvents: 'none'
+            }}
+          >
           <h1
             style={{
               fontFamily: "'Mona Sans', sans-serif",
@@ -215,6 +204,32 @@ function App() {
               to {
                 transform: translateX(0);
                 opacity: 1;
+              }
+            }
+            @keyframes macOpenAnimation {
+              0% {
+                opacity: 0;
+                transform: scale(0.01);
+              }
+              1% {
+                opacity: 1;
+              }
+              100% {
+                opacity: 1;
+                transform: scale(1);
+              }
+            }
+            @keyframes macCloseAnimation {
+              0% {
+                opacity: 1;
+                transform: scale(1);
+              }
+              99% {
+                opacity: 1;
+              }
+              100% {
+                opacity: 0;
+                transform: scale(0.01);
               }
             }
             .flip-button {
@@ -337,11 +352,43 @@ function App() {
               transform: scale(0.955);
             }
           `}</style>
+          </div>
+        </div>
+
+        {/* Image Section - Scene 7 */}
+        <div
+          style={{
+            position: 'relative',
+            zIndex: 100,
+            padding: '80px 20px'
+          }}
+        >
+          <div
+            style={{
+              maxWidth: '1440px',
+              margin: '0 auto',
+              backgroundColor: '#fff',
+              padding: '40px',
+              borderRadius: '20px',
+              border: '2px solid #1b1b1b'
+            }}
+          >
+            <img
+              src={scene7}
+              alt="Scene 7"
+              style={{
+                width: '100%',
+                height: 'auto',
+                display: 'block',
+                borderRadius: '12px'
+              }}
+            />
+          </div>
         </div>
       </div>
 
       {/* Footer - floating di bawah */}
-      <Footer />
+      <Footer onOpenPopup={handleOpenPopup} />
     </>
   )
 }
