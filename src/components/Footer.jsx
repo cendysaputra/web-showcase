@@ -6,24 +6,48 @@ function Footer() {
         bottom: 0,
         left: 0,
         right: 0,
-        zIndex: 10
+        zIndex: 102
       }}
     >
-      <div
-        style={{
-          maxWidth: '1440px',
-          margin: '0 auto',
-          padding: '24px 0',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'baseline'
-        }}
-      >
-        <p style={{ margin: 0, padding: 0, fontSize: '16px', color: '#1b1b1b', fontFamily: 'Mona Sans, sans-serif', lineHeight: 1 }}>
+      <style>{`
+        .footer-container {
+          max-width: 1440px;
+          margin: 0 auto;
+          padding: 24px 16px;
+          display: flex;
+          justify-content: space-between;
+          align-items: baseline;
+        }
+        @media (min-width: 768px) {
+          .footer-container {
+            padding: 24px;
+          }
+        }
+        @media (min-width: 1200px) {
+          .footer-container {
+            padding: 24px 0;
+          }
+        }
+        .footer-text {
+          margin: 0;
+          padding: 0;
+          font-size: 14px;
+          color: #1b1b1b;
+          font-family: Mona Sans, sans-serif;
+          line-height: 1;
+        }
+        @media (min-width: 1200px) {
+          .footer-text {
+            font-size: 16px;
+          }
+        }
+      `}</style>
+      <div className="footer-container">
+        <p className="footer-text">
           © 2025 All rights reserved
         </p>
-        <p style={{ margin: 0, padding: 0, fontSize: '16px', color: '#1b1b1b', fontFamily: 'Mona Sans, sans-serif', lineHeight: 1 }}>
-          hello world
+        <p className="footer-text">
+          HelloWorld
         </p>
       </div>
     </div>
