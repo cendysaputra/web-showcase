@@ -38,7 +38,7 @@ const Header = () => {
       <div style={{
         maxWidth: '1440px',
         margin: '0 auto',
-        padding: '24px 40px',
+        padding: '24px 0',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between'
