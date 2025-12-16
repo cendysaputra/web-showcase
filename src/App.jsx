@@ -10,7 +10,7 @@ function App() {
           dotSize={4}
           gap={20}
           baseColor="#EEE"
-          activeColor="#FFE5DE"
+          activeColor="#EEE"
           proximity={80}
           shockRadius={180}
           shockStrength={5}
