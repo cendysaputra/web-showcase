@@ -10,7 +10,7 @@ function App() {
   const [showPopup, setShowPopup] = useState(false)
   const [popupOrigin, setPopupOrigin] = useState({ x: 0, y: 0 })
   const [isClosing, setIsClosing] = useState(false)
-  const [imageScale, setImageScale] = useState(0.3)
+  const [imageScale, setImageScale] = useState(0.7)
   const imageRef = useRef(null)
 
   // Initialize Lenis smooth scroll
@@ -48,12 +48,12 @@ function App() {
       const windowHeight = window.innerHeight
 
       // Calculate scroll progress
-      // When image is at bottom of screen, scale = 0.3
+      // When image is at bottom of screen, scale = 0.7
       // When image is centered, scale = 1
       const scrollProgress = Math.max(0, Math.min(1, (windowHeight - rect.top) / windowHeight))
 
-      // Scale from 0.3 to 1 based on scroll progress
-      const scale = 0.3 + (scrollProgress * 0.7)
+      // Scale from 0.7 to 1 based on scroll progress
+      const scale = 0.7 + (scrollProgress * 0.3)
       setImageScale(scale)
     }
 
@@ -177,6 +177,7 @@ function App() {
 
         {/* Hero Banner */}
         <div
+          className="hero-banner"
           style={{
             position: 'relative',
             height: '100vh',
@@ -192,42 +193,175 @@ function App() {
             }}
           >
           <h1
+            className="hero-title"
             style={{
               fontFamily: "'Mona Sans', sans-serif",
-              fontSize: '180px',
               color: '#000',
               margin: 0,
               fontWeight: 500,
               lineHeight: 1.15,
-              whiteSpace: 'nowrap',
               letterSpacing: '-1px',
               textAlign: 'center',
               overflow: 'visible',
               paddingBottom: '20px'
             }}
           >
-            {'Ruang Artefak'.split('').map((char, index) => (
-              <span
-                key={index}
-                style={{
-                  display: 'inline-block',
-                  overflow: 'hidden',
-                  verticalAlign: 'bottom'
-                }}
-              >
+            <span className="hero-word" style={{ fontFamily: "'Mona Sans', sans-serif" }}>
+              {'Ruang'.split('').map((char, index) => (
                 <span
+                  key={index}
                   style={{
                     display: 'inline-block',
-                    animation: `slideUp 0.8s cubic-bezier(0.77, 0, 0.175, 1) ${index * 0.05}s forwards`,
-                    transform: 'translateY(100%)'
+                    overflow: 'hidden',
+                    verticalAlign: 'bottom',
+                    fontFamily: "'Mona Sans', sans-serif"
                   }}
                 >
-                  {char === ' ' ? '\u00A0' : char}
+                  <span
+                    style={{
+                      display: 'inline-block',
+                      animation: `slideUp 0.8s cubic-bezier(0.77, 0, 0.175, 1) ${index * 0.05}s forwards`,
+                      transform: 'translateY(100%)',
+                      fontFamily: "'Mona Sans', sans-serif"
+                    }}
+                  >
+                    {char}
+                  </span>
                 </span>
-              </span>
-            ))}
+              ))}
+            </span>
+            {' '}
+            <span className="hero-word" style={{ fontFamily: "'Mona Sans', sans-serif" }}>
+              {'Artefak'.split('').map((char, index) => (
+                <span
+                  key={index + 5}
+                  style={{
+                    display: 'inline-block',
+                    overflow: 'hidden',
+                    verticalAlign: 'bottom',
+                    fontFamily: "'Mona Sans', sans-serif"
+                  }}
+                >
+                  <span
+                    style={{
+                      display: 'inline-block',
+                      animation: `slideUp 0.8s cubic-bezier(0.77, 0, 0.175, 1) ${(index + 6) * 0.05}s forwards`,
+                      transform: 'translateY(100%)',
+                      fontFamily: "'Mona Sans', sans-serif"
+                    }}
+                  >
+                    {char}
+                  </span>
+                </span>
+              ))}
+            </span>
           </h1>
           <style>{`
+            /* Responsive Hero Banner */
+            .hero-banner {
+              padding: 0;
+            }
+            @media (max-width: 767px) {
+              .hero-banner {
+                height: auto !important;
+                min-height: 100vh;
+                padding: 120px 16px !important;
+              }
+            }
+            @media (max-width: 480px) {
+              .hero-banner {
+                height: auto !important;
+                min-height: 100vh;
+                padding: 120px 16px !important;
+              }
+            }
+
+            /* Responsive Hero Title */
+            .hero-title {
+              font-size: 180px;
+              white-space: nowrap;
+              font-family: 'Mona Sans', sans-serif !important;
+            }
+            .hero-title * {
+              font-family: 'Mona Sans', sans-serif !important;
+            }
+            .hero-word {
+              display: inline-block;
+              font-family: 'Mona Sans', sans-serif !important;
+            }
+            @media (max-width: 1199px) {
+              .hero-title {
+                font-size: 100px;
+                white-space: normal;
+              }
+              .hero-word {
+                display: block;
+              }
+            }
+            @media (max-width: 767px) {
+              .hero-title {
+                font-size: 85px;
+                white-space: normal;
+              }
+              .hero-word {
+                display: block;
+              }
+            }
+            @media (max-width: 480px) {
+              .hero-title {
+                font-size: 85px;
+                white-space: normal;
+              }
+              .hero-word {
+                display: block;
+              }
+            }
+
+            /* Responsive Cendy Saputra Logo */
+            .cendy-logo {
+              width: auto;
+              height: auto;
+              margin-top: -80px;
+            }
+            @media (max-width: 1199px) {
+              .cendy-logo {
+                margin-top: -60px;
+                max-width: 200px;
+              }
+            }
+            @media (max-width: 767px) {
+              .cendy-logo {
+                margin: -50px auto 0 !important;
+                right: 0 !important;
+                max-width: 200px;
+              }
+            }
+            @media (max-width: 480px) {
+              .cendy-logo {
+                margin: -50px auto 0 !important;
+                right: 0 !important;
+                max-width: 200px;
+              }
+            }
+
+            /* Responsive Button */
+            .pill-button {
+              padding: 16px 40px;
+              font-size: 18px;
+            }
+            @media (max-width: 767px) {
+              .pill-button {
+                padding: 12px 30px;
+                font-size: 16px;
+              }
+            }
+            @media (max-width: 480px) {
+              .pill-button {
+                padding: 10px 24px;
+                font-size: 14px;
+              }
+            }
+
             @keyframes slideUp {
               to {
                 transform: translateY(0);
@@ -303,9 +437,9 @@ function App() {
           <img
             src={cendySaputraLogo}
             alt="Cendy Saputra"
+            className="cendy-logo"
             style={{
               display: 'block',
-              marginTop: '-80px',
               marginLeft: 'auto',
               position: 'relative',
               right: '-40px',
@@ -327,11 +461,9 @@ function App() {
               className="pill-button"
               style={{
                 position: 'relative',
-                padding: '16px 40px',
                 border: '2px solid #1b1b1b',
                 borderRadius: '50px',
                 fontFamily: "'Mona Sans', sans-serif",
-                fontSize: '18px',
                 fontWeight: 600,
                 cursor: 'pointer',
                 pointerEvents: 'auto',
@@ -410,14 +542,14 @@ function App() {
           </div>
         </div>
 
-        {/* Image Section - Scene 7 */}
+        {/* Video Section - YouTube */}
         <div
           ref={imageRef}
+          className="image-section"
           style={{
             position: 'relative',
             zIndex: 100,
-            padding: '40px 20px',
-            minHeight: '100vh',
+            padding: '0 20px 80px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center'
@@ -436,16 +568,30 @@ function App() {
               transition: 'transform 0.1s ease-out'
             }}
           >
-            <img
-              src={scene7}
-              alt="Scene 7"
+            <div
               style={{
-                width: '100%',
-                height: 'auto',
-                display: 'block',
+                position: 'relative',
+                paddingBottom: '56.25%',
+                height: 0,
+                overflow: 'hidden',
                 borderRadius: '12px'
               }}
-            />
+            >
+              <iframe
+                src="https://www.youtube.com/embed/4obkMThkU_I?autoplay=1&mute=1&loop=1&playlist=4obkMThkU_I&controls=0&modestbranding=1&rel=0"
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  height: '100%',
+                  border: 'none',
+                  borderRadius: '12px'
+                }}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
           </div>
         </div>
       </div>

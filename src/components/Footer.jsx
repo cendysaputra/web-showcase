@@ -40,7 +40,7 @@ function Footer({ onOpenPopup }) {
         .footer-text {
           margin: 0;
           padding: 0;
-          font-size: 14px;
+          font-size: 12px;
           color: #1b1b1b;
           font-family: Mona Sans, sans-serif;
           line-height: 1;
@@ -72,8 +72,6 @@ function Footer({ onOpenPopup }) {
           © 2025 All rights reserved
         </p>
         <div className="info-footer">
-          <p className="footer-text">HelloWorld</p>
-          <p className="footer-text footer-divider">|</p>
           <p className="footer-text info-link" onClick={handleInfoClick}>
             What is an Ruang Artefak?
           </p>
