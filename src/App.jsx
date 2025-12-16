@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
+import Lenis from '@studio-freight/lenis'
 import DotGrid from './components/DotGrid'
 import Header from './components/Header'
 import Footer from './components/Footer'
@@ -9,6 +10,60 @@ function App() {
   const [showPopup, setShowPopup] = useState(false)
   const [popupOrigin, setPopupOrigin] = useState({ x: 0, y: 0 })
   const [isClosing, setIsClosing] = useState(false)
+  const [imageScale, setImageScale] = useState(0.3)
+  const imageRef = useRef(null)
+
+  // Initialize Lenis smooth scroll
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.8,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: 'vertical',
+      smoothWheel: true,
+      wheelMultiplier: 0.4,
+      smoothTouch: false,
+      touchMultiplier: 1.5,
+      infinite: false,
+    })
+
+    function raf(time) {
+      lenis.raf(time)
+      requestAnimationFrame(raf)
+    }
+
+    requestAnimationFrame(raf)
+
+    return () => {
+      lenis.destroy()
+    }
+  }, [])
+
+  // Image scale animation on scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!imageRef.current) return
+
+      const imageSection = imageRef.current
+      const rect = imageSection.getBoundingClientRect()
+      const windowHeight = window.innerHeight
+
+      // Calculate scroll progress
+      // When image is at bottom of screen, scale = 0.3
+      // When image is centered, scale = 1
+      const scrollProgress = Math.max(0, Math.min(1, (windowHeight - rect.top) / windowHeight))
+
+      // Scale from 0.3 to 1 based on scroll progress
+      const scale = 0.3 + (scrollProgress * 0.7)
+      setImageScale(scale)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    handleScroll() // Initial call
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
 
   const handleOpenPopup = (position) => {
     setPopupOrigin(position)
@@ -357,20 +412,28 @@ function App() {
 
         {/* Image Section - Scene 7 */}
         <div
+          ref={imageRef}
           style={{
             position: 'relative',
             zIndex: 100,
-            padding: '80px 20px'
+            padding: '40px 20px',
+            minHeight: '100vh',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
           }}
         >
           <div
             style={{
               maxWidth: '1440px',
+              width: '100%',
               margin: '0 auto',
               backgroundColor: '#fff',
               padding: '40px',
               borderRadius: '20px',
-              border: '2px solid #1b1b1b'
+              border: '2px solid #1b1b1b',
+              transform: `scale(${imageScale})`,
+              transition: 'transform 0.1s ease-out'
             }}
           >
             <img

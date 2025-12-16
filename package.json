@@ -20,6 +20,7 @@
   "homepage": "https://github.com/cendysaputra/web-showcase#readme",
   "description": "",
   "dependencies": {
+    "@studio-freight/lenis": "^1.0.42",
     "@vitejs/plugin-react": "^5.1.2",
     "gsap": "^3.14.2",
     "react": "^19.2.3",
