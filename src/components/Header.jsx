@@ -5,7 +5,7 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const linkStyle = {
-    color: '#333',
+    color: '#1b1b1b',
     textDecoration: 'none',
     fontFamily: 'Mona Sans',
     fontSize: '16px',

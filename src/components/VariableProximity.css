@@ -1,0 +1,31 @@
+.variable-proximity {
+  font-family: 'Mona Sans Variable', 'Mona Sans', sans-serif;
+  line-height: 1.4;
+  font-feature-settings: normal;
+  font-variation-settings: 'wght' 400, 'opsz' 9;
+  display: inline-block;
+}
+
+.variable-proximity span {
+  will-change: font-variation-settings;
+  display: inline-block;
+  vertical-align: baseline;
+  line-height: inherit;
+}
+
+.variable-proximity span span {
+  display: inline-block;
+  vertical-align: baseline;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}

@@ -3,8 +3,8 @@ import Lenis from '@studio-freight/lenis'
 import DotGrid from './components/DotGrid'
 import Header from './components/Header'
 import Footer from './components/Footer'
+import VariableProximity from './components/VariableProximity'
 import cendySaputraLogo from './assets/images/Cendy Saputra.svg'
-import scene7 from './assets/images/Scene 7.jpg'
 
 function App() {
   const [showPopup, setShowPopup] = useState(false)
@@ -12,6 +12,91 @@ function App() {
   const [isClosing, setIsClosing] = useState(false)
   const [imageScale, setImageScale] = useState(0.7)
   const imageRef = useRef(null)
+  const textContainerRef = useRef(null)
+  const textSectionRef = useRef(null)
+  const [textOpacity, setTextOpacity] = useState(0)
+
+  // Disable browser zoom
+  useEffect(() => {
+    // Disable zoom via viewport meta
+    const setViewport = () => {
+      const viewport = document.querySelector('meta[name=viewport]')
+      if (viewport) {
+        viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover')
+      }
+    }
+    setViewport()
+
+    // Prevent zoom with keyboard shortcuts
+    const preventZoom = (e) => {
+      if (
+        (e.ctrlKey || e.metaKey) &&
+        (e.key === '+' || e.key === '-' || e.key === '=' || e.key === '0' || e.keyCode === 187 || e.keyCode === 189 || e.keyCode === 48)
+      ) {
+        e.preventDefault()
+        e.stopPropagation()
+        return false
+      }
+    }
+
+    // Prevent zoom with mouse wheel + ctrl/cmd
+    const preventWheelZoom = (e) => {
+      if (e.ctrlKey || e.metaKey) {
+        e.preventDefault()
+        e.stopPropagation()
+        return false
+      }
+    }
+
+    // Prevent pinch zoom on touchpad/touchscreen
+    const preventTouchZoom = (e) => {
+      if (e.touches && e.touches.length > 1) {
+        e.preventDefault()
+        e.stopPropagation()
+        return false
+      }
+    }
+
+    // Prevent double-tap zoom on mobile
+    let lastTouchEnd = 0
+    const preventDoubleTapZoom = (e) => {
+      const now = Date.now()
+      if (now - lastTouchEnd <= 300) {
+        e.preventDefault()
+        e.stopPropagation()
+        return false
+      }
+      lastTouchEnd = now
+    }
+
+    // Prevent gesture zoom on trackpad
+    const preventGestureZoom = (e) => {
+      e.preventDefault()
+      e.stopPropagation()
+      return false
+    }
+
+    // Add all event listeners
+    document.addEventListener('keydown', preventZoom, { passive: false, capture: true })
+    document.addEventListener('wheel', preventWheelZoom, { passive: false, capture: true })
+    document.addEventListener('touchstart', preventTouchZoom, { passive: false, capture: true })
+    document.addEventListener('touchmove', preventTouchZoom, { passive: false, capture: true })
+    document.addEventListener('touchend', preventDoubleTapZoom, { passive: false, capture: true })
+    document.addEventListener('gesturestart', preventGestureZoom, { passive: false, capture: true })
+    document.addEventListener('gesturechange', preventGestureZoom, { passive: false, capture: true })
+    document.addEventListener('gestureend', preventGestureZoom, { passive: false, capture: true })
+
+    return () => {
+      document.removeEventListener('keydown', preventZoom, { capture: true })
+      document.removeEventListener('wheel', preventWheelZoom, { capture: true })
+      document.removeEventListener('touchstart', preventTouchZoom, { capture: true })
+      document.removeEventListener('touchmove', preventTouchZoom, { capture: true })
+      document.removeEventListener('touchend', preventDoubleTapZoom, { capture: true })
+      document.removeEventListener('gesturestart', preventGestureZoom, { capture: true })
+      document.removeEventListener('gesturechange', preventGestureZoom, { capture: true })
+      document.removeEventListener('gestureend', preventGestureZoom, { capture: true })
+    }
+  }, [])
 
   // Initialize Lenis smooth scroll
   useEffect(() => {
@@ -55,6 +140,29 @@ function App() {
       // Scale from 0.7 to 1 based on scroll progress
       const scale = 0.7 + (scrollProgress * 0.3)
       setImageScale(scale)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    handleScroll() // Initial call
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
+  // Text fade in animation on scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!textSectionRef.current) return
+
+      const textSection = textSectionRef.current
+      const rect = textSection.getBoundingClientRect()
+      const windowHeight = window.innerHeight
+
+      // Start animation when section is 20% into viewport
+      const scrollProgress = Math.max(0, Math.min(1, (windowHeight - rect.top - windowHeight * 0.2) / (windowHeight * 0.6)))
+
+      setTextOpacity(scrollProgress)
     }
 
     window.addEventListener('scroll', handleScroll)
@@ -578,15 +686,16 @@ function App() {
               }}
             >
               <iframe
-                src="https://www.youtube.com/embed/4obkMThkU_I?autoplay=1&mute=1&loop=1&playlist=4obkMThkU_I&controls=0&modestbranding=1&rel=0"
+                src="https://www.youtube.com/embed/4obkMThkU_I?autoplay=1&mute=1&loop=1&playlist=4obkMThkU_I&controls=0&modestbranding=1&rel=0&showinfo=0&fs=0&iv_load_policy=3&disablekb=1"
                 style={{
                   position: 'absolute',
-                  top: 0,
+                  top: '-60px',
                   left: 0,
                   width: '100%',
-                  height: '100%',
+                  height: 'calc(100% + 120px)',
                   border: 'none',
-                  borderRadius: '12px'
+                  borderRadius: '12px',
+                  pointerEvents: 'none'
                 }}
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
@@ -594,6 +703,85 @@ function App() {
             </div>
           </div>
         </div>
+
+        {/* Text Section with Variable Proximity */}
+        <div
+          ref={textSectionRef}
+          className="text-section-container"
+          style={{
+            position: 'relative',
+            zIndex: 100,
+            minHeight: '100vh',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '0 20px'
+          }}
+        >
+          <div
+            ref={textContainerRef}
+            style={{
+              maxWidth: '1100px',
+              width: '100%',
+              margin: '0 auto',
+              position: 'relative',
+              opacity: textOpacity,
+              transform: `translateY(${(1 - textOpacity) * 50}px)`,
+              transition: 'opacity 0.1s ease-out, transform 0.1s ease-out'
+            }}
+          >
+            <p
+              className="text-section-paragraph"
+              style={{
+                fontFamily: "'Mona Sans Variable', 'Mona Sans', sans-serif",
+                fontSize: '40px',
+                lineHeight: '1.4',
+                color: '#1b1b1b',
+                textAlign: 'center',
+                margin: 0
+              }}
+            >
+              <VariableProximity
+                label="None of the projects you see here started with a tool. Instead, they all began with a single question: 'What story do we want to tell?'"
+                fromFontVariationSettings="'wght' 400, 'opsz' 9"
+                toFontVariationSettings="'wght' 1000, 'opsz' 40"
+                containerRef={textContainerRef}
+                radius={100}
+                falloff="linear"
+              />
+            </p>
+          </div>
+        </div>
+        <style>{`
+          /* Responsive Text Section */
+          .text-section-container {
+            min-height: 100vh;
+          }
+          .text-section-paragraph {
+            font-size: 40px;
+          }
+          @media (max-width: 1199px) {
+            .text-section-paragraph {
+              font-size: 36px !important;
+            }
+          }
+          @media (max-width: 767px) {
+            .text-section-paragraph {
+              font-size: 28px !important;
+            }
+            .text-section-container {
+              min-height: 80vh;
+            }
+          }
+          @media (max-width: 480px) {
+            .text-section-paragraph {
+              font-size: 24px !important;
+            }
+            .text-section-container {
+              min-height: 70vh;
+            }
+          }
+        `}</style>
       </div>
 
       {/* Footer - floating di bawah */}
