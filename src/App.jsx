@@ -4,6 +4,7 @@ import DotGrid from './components/DotGrid'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import VariableProximity from './components/VariableProximity'
+import RunningText from './components/RunningText'
 import cendySaputraLogo from './assets/images/Cendy Saputra.svg'
 
 function App() {
@@ -782,6 +783,12 @@ function App() {
             }
           }
         `}</style>
+
+        {/* Running Text Section */}
+        <RunningText
+          text="Design • Development • Creative • Visual • Branding • Animation • UI/UX • Innovation"
+          speed={50}
+        />
       </div>
 
       {/* Footer - floating di bawah */}
