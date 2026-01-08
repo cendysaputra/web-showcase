@@ -5,6 +5,7 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import VariableProximity from './components/VariableProximity'
 import RunningText from './components/RunningText'
+import EyeAnimation from './components/EyeAnimation'
 import cendySaputraLogo from './assets/images/Cendy Saputra.svg'
 
 function App() {
@@ -298,9 +299,20 @@ function App() {
         >
           <div
             style={{
-              pointerEvents: 'none'
+              pointerEvents: 'none',
+              position: 'relative'
             }}
           >
+          {/* Eye Animation SVG */}
+          <EyeAnimation
+            className="eye-animation"
+            style={{
+              position: 'absolute',
+              height: 'auto',
+              zIndex: 10,
+              opacity: 0
+            }}
+          />
           <h1
             className="hero-title"
             style={{
@@ -382,6 +394,35 @@ function App() {
                 height: auto !important;
                 min-height: 100vh;
                 padding: 120px 16px !important;
+              }
+            }
+
+            /* Responsive Eye Animation */
+            .eye-animation {
+              width: 90px;
+              left: calc(50% - 340px);
+              top: 60px;
+              animation: fadeIn 0.8s cubic-bezier(0.77, 0, 0.175, 1) 0.5s forwards;
+            }
+            @media (max-width: 1199px) {
+              .eye-animation {
+                width: 60px;
+                left: calc(50% - 220px);
+                top: 40px;
+              }
+            }
+            @media (max-width: 767px) {
+              .eye-animation {
+                width: 50px;
+                left: 20px;
+                top: 30px;
+              }
+            }
+            @media (max-width: 480px) {
+              .eye-animation {
+                width: 45px;
+                left: 15px;
+                top: 25px;
               }
             }
 
@@ -789,7 +830,7 @@ function App() {
                     <path
                       d="M 0,4 Q 5,2 10,3.5 T 20,4 Q 25,5 30,3.8 T 40,4.2 Q 45,3 50,4.5 T 60,3.8 Q 65,5 70,4 T 80,4.3 Q 85,3 90,4.2 T 100,4"
                       fill="none"
-                      stroke="#FF8C00"
+                      stroke="#F04F23"
                       strokeWidth="3"
                       strokeLinecap="round"
                       strokeLinejoin="round"
