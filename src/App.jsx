@@ -754,14 +754,48 @@ function App() {
                   falloff="linear"
                 />
                 <br />
-                <VariableProximity
-                  label="'What story do we want to tell?'"
-                  fromFontVariationSettings="'wght' 400, 'opsz' 9"
-                  toFontVariationSettings="'wght' 1000, 'opsz' 40"
-                  containerRef={textContainerRef}
-                  radius={100}
-                  falloff="linear"
-                />
+                <span
+                  style={{
+                    display: 'inline-block',
+                    position: 'relative'
+                  }}
+                >
+                  <span style={{ position: 'relative', zIndex: 1 }}>
+                    <VariableProximity
+                      label="'What story do we want to tell?'"
+                      fromFontVariationSettings="'wght' 400, 'opsz' 9"
+                      toFontVariationSettings="'wght' 1000, 'opsz' 40"
+                      containerRef={textContainerRef}
+                      radius={100}
+                      falloff="linear"
+                    />
+                  </span>
+                  <svg
+                    style={{
+                      position: 'absolute',
+                      bottom: '4px',
+                      left: 0,
+                      width: '100%',
+                      height: '8px',
+                      transformOrigin: 'left',
+                      transform: `scaleX(${textOpacity})`,
+                      transition: 'transform 0.8s cubic-bezier(0.77, 0, 0.175, 1)',
+                      overflow: 'visible',
+                      zIndex: 0
+                    }}
+                    viewBox="0 0 100 8"
+                    preserveAspectRatio="none"
+                  >
+                    <path
+                      d="M 0,4 Q 5,2 10,3.5 T 20,4 Q 25,5 30,3.8 T 40,4.2 Q 45,3 50,4.5 T 60,3.8 Q 65,5 70,4 T 80,4.3 Q 85,3 90,4.2 T 100,4"
+                      fill="none"
+                      stroke="#FF8C00"
+                      strokeWidth="3"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </span>
               </>
             </p>
           </div>
