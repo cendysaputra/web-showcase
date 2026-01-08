@@ -739,17 +739,30 @@ function App() {
                 lineHeight: '1.4',
                 color: '#1b1b1b',
                 textAlign: 'center',
-                margin: 0
+                margin: 0,
+                cursor: 'default',
+                userSelect: 'none'
               }}
             >
-              <VariableProximity
-                label="None of the projects you see here started with a tool. Instead, they all began with a single question: 'What story do we want to tell?'"
-                fromFontVariationSettings="'wght' 400, 'opsz' 9"
-                toFontVariationSettings="'wght' 1000, 'opsz' 40"
-                containerRef={textContainerRef}
-                radius={100}
-                falloff="linear"
-              />
+              <>
+                <VariableProximity
+                  label="None of the projects you see here started with a tool. Instead, they all began with a single question:"
+                  fromFontVariationSettings="'wght' 400, 'opsz' 9"
+                  toFontVariationSettings="'wght' 1000, 'opsz' 40"
+                  containerRef={textContainerRef}
+                  radius={100}
+                  falloff="linear"
+                />
+                <br />
+                <VariableProximity
+                  label="'What story do we want to tell?'"
+                  fromFontVariationSettings="'wght' 400, 'opsz' 9"
+                  toFontVariationSettings="'wght' 1000, 'opsz' 40"
+                  containerRef={textContainerRef}
+                  radius={100}
+                  falloff="linear"
+                />
+              </>
             </p>
           </div>
         </div>
