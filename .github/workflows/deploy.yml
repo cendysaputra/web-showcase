@@ -1,0 +1,24 @@
+name: Deploy to DigitalOcean
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /var/www/ruangartefak
+            git pull origin main
+            npm install
+            npm run build
+            systemctl reload nginx
+            echo "✅ Deploy complete at $(date)"
