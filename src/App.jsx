@@ -711,9 +711,9 @@ function App() {
               width: '100%',
               margin: '0 auto',
               backgroundColor: '#fff',
-              padding: '40px',
+              padding: '16px',
               borderRadius: '20px',
-              border: '2px solid #1b1b1b',
+              border: '1px solid #1b1b1b',
               transform: `scale(${imageScale})`,
               transition: 'transform 0.1s ease-out'
             }}
