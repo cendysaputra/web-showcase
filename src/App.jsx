@@ -874,7 +874,7 @@ function App() {
 
         {/* Running Text Section */}
         <RunningText
-          text="Design • Development • Creative • Visual • Branding • Animation • UI/UX • Innovation"
+          text="UI/UX • Graphic Design • 3D Modeling • Wordpress Developer • Frontend Web Developer"
           speed={50}
         />
       </div>
