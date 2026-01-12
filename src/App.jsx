@@ -175,10 +175,20 @@ function App() {
     }
   }, [])
 
-  const handleOpenPopup = (position) => {
-    setPopupOrigin(position)
-    setIsClosing(false)
-    setShowPopup(true)
+  const handleTogglePopup = (position) => {
+    if (showPopup) {
+      // Close popup
+      setIsClosing(true)
+      setTimeout(() => {
+        setShowPopup(false)
+        setIsClosing(false)
+      }, 400)
+    } else {
+      // Open popup
+      setPopupOrigin(position)
+      setIsClosing(false)
+      setShowPopup(true)
+    }
   }
 
   const handleClosePopup = () => {
@@ -535,6 +545,14 @@ function App() {
                 opacity: 1;
               }
             }
+            @keyframes fadeOut {
+              from {
+                opacity: 1;
+              }
+              to {
+                opacity: 0;
+              }
+            }
             @keyframes slideInRight {
               from {
                 transform: translateX(100%);
@@ -880,7 +898,7 @@ function App() {
       </div>
 
       {/* Footer - floating di bawah */}
-      <Footer onOpenPopup={handleOpenPopup} />
+      <Footer onOpenPopup={handleTogglePopup} />
     </>
   )
 }
