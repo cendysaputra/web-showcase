@@ -18,6 +18,7 @@ function App() {
   const textSectionRef = useRef(null)
   const [textOpacity, setTextOpacity] = useState(0)
   const hasAutoShownRef = useRef(false)
+  const isAutoOpenedRef = useRef(false)
 
   // Auto-show popup for first-time visitors
   useEffect(() => {
@@ -49,6 +50,7 @@ function App() {
         setIsClosing(false)
         setShowPopup(true)
         hasAutoShownRef.current = true
+        isAutoOpenedRef.current = true // Mark as auto-opened
 
         // Save timestamp to localStorage
         localStorage.setItem('ruangArtefakPopupShown', JSON.stringify({
@@ -59,6 +61,28 @@ function App() {
       return () => clearTimeout(timer)
     }
   }, [])
+
+  // Auto-close popup on scroll if it was auto-opened
+  useEffect(() => {
+    if (!showPopup || !isAutoOpenedRef.current) return
+
+    const handleScroll = () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop
+      const documentHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight
+      const scrollPercentage = (scrollTop / documentHeight) * 100
+
+      // Close popup if scrolled 40% or more
+      if (scrollPercentage >= 40 && isAutoOpenedRef.current) {
+        handleClosePopup()
+        isAutoOpenedRef.current = false // Reset flag
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [showPopup])
 
   // Disable browser zoom
   useEffect(() => {
@@ -230,6 +254,7 @@ function App() {
       setPopupOrigin(position)
       setIsClosing(false)
       setShowPopup(true)
+      isAutoOpenedRef.current = false // Mark as manually opened
 
       // Update session when manually opened
       if (!hasAutoShownRef.current) {
