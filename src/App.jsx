@@ -6,7 +6,11 @@ import Footer from './components/Footer'
 import VariableProximity from './components/VariableProximity'
 import RunningText from './components/RunningText'
 import EyeAnimation from './components/EyeAnimation'
+import Folder from './components/Folder'
 import cendySaputraLogo from './assets/images/Cendy Saputra.svg'
+import folderImgLeft from './assets/images/folder-img-left.png'
+import folderImgCenter from './assets/images/folder-img-center.png'
+import folderImgRight from './assets/images/folder-img-rigt.png'
 
 function App() {
   const [showPopup, setShowPopup] = useState(false)
@@ -19,6 +23,9 @@ function App() {
   const [textOpacity, setTextOpacity] = useState(0)
   const hasAutoShownRef = useRef(false)
   const isAutoOpenedRef = useRef(false)
+  const [folderOpen, setFolderOpen] = useState(false)
+  const twoColumnSectionRef = useRef(null)
+  const folderRef = useRef(null)
 
   // Auto-show popup for first-time visitors
   useEffect(() => {
@@ -238,6 +245,44 @@ function App() {
 
     return () => {
       window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
+  // Auto open/close folder when folder is visible/hidden in viewport
+  useEffect(() => {
+    const currentRef = folderRef.current
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          console.log('Folder intersection observed:', entry.isIntersecting, 'Ratio:', entry.intersectionRatio)
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+            // Wait a bit before opening the folder for a nice effect
+            setTimeout(() => {
+              console.log('Setting folder open to true')
+              setFolderOpen(true)
+            }, 300)
+          } else if (!entry.isIntersecting || entry.intersectionRatio < 0.3) {
+            // Close folder when it's out of view or less than 30% visible
+            console.log('Setting folder open to false')
+            setFolderOpen(false)
+          }
+        })
+      },
+      {
+        threshold: [0, 0.3, 0.5], // Multiple thresholds to track visibility
+        rootMargin: '0px'
+      }
+    )
+
+    if (currentRef) {
+      observer.observe(currentRef)
+    }
+
+    return () => {
+      if (currentRef) {
+        observer.unobserve(currentRef)
+      }
     }
   }, [])
 
@@ -969,6 +1014,133 @@ function App() {
           text="UI/UX • Graphic Design • 3D Modeling • Wordpress Developer • Frontend Web Developer"
           speed={50}
         />
+
+        {/* Two Column Section */}
+        <div
+          ref={twoColumnSectionRef}
+          style={{
+            position: 'relative',
+            zIndex: 100,
+            height: '100vh',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '120px 20px'
+          }}
+          className="two-column-section"
+        >
+          <div
+            style={{
+              maxWidth: '1440px',
+              width: '100%',
+              margin: '0 auto',
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr',
+              gap: '80px',
+              alignItems: 'end',
+              height: '100%'
+            }}
+            className="two-column-grid"
+          >
+            {/* Left Column - Text */}
+            <div
+              style={{
+                width: '100%',
+                alignSelf: 'start',
+                paddingTop: '0'
+              }}
+            >
+              <p
+                style={{
+                  fontFamily: "'Mona Sans', sans-serif",
+                  fontSize: '40px',
+                  lineHeight: '1.4',
+                  color: '#1b1b1b',
+                  margin: 0
+                }}
+                className="two-column-text"
+              >
+                Here are the answers we found.<br />Each work is a visual chapter where narrative and technology unite into an unforgettable experience.
+              </p>
+            </div>
+
+            {/* Right Column - Folder */}
+            <div
+              style={{
+                width: '100%',
+                display: 'flex',
+                justifyContent: 'flex-end',
+                alignItems: 'flex-end',
+                paddingRight: '80px',
+                paddingBottom: '0'
+              }}
+            >
+              <div
+                ref={folderRef}
+                style={{
+                  width: 'fit-content',
+                  height: 'fit-content',
+                  pointerEvents: 'auto'
+                }}
+              >
+                <Folder
+                  color="#ff4000"
+                  size={1.6}
+                  className="custom-folder"
+                  open={folderOpen}
+                  items={[
+                    <img key="left" src={folderImgLeft} alt="Left" style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: '10px' }} />,
+                    <img key="center" src={folderImgCenter} alt="Center" style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: '10px' }} />,
+                    <img key="right" src={folderImgRight} alt="Right" style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: '10px' }} />
+                  ]}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <style>{`
+          /* Two Column Responsive */
+          .two-column-text {
+            font-size: 40px;
+          }
+
+          /* Custom Folder Styles - Only clickable on folder element */
+          .custom-folder {
+            pointer-events: auto;
+          }
+
+          .custom-folder > * {
+            pointer-events: none;
+          }
+
+          .custom-folder .folder {
+            pointer-events: auto;
+          }
+
+          @media (max-width: 1199px) {
+            .two-column-text {
+              font-size: 36px !important;
+            }
+          }
+          @media (max-width: 767px) {
+            .two-column-grid {
+              grid-template-columns: 1fr !important;
+              gap: 40px !important;
+            }
+            .two-column-text {
+              font-size: 28px !important;
+            }
+            .two-column-section {
+              min-height: auto !important;
+              padding: 80px 20px !important;
+            }
+          }
+          @media (max-width: 480px) {
+            .two-column-text {
+              font-size: 24px !important;
+            }
+          }
+        `}</style>
       </div>
 
       {/* Footer - floating di bawah */}

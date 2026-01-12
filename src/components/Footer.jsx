@@ -69,7 +69,7 @@ function Footer({ onOpenPopup }) {
       `}</style>
       <div className="footer-container">
         <p className="footer-text">
-          © 2025 All rights reserved
+          © {new Date().getFullYear()} All rights reserved
         </p>
         <div className="info-footer">
           <p className="footer-text info-link" onClick={handleInfoClick}>

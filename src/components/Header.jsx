@@ -270,26 +270,26 @@ const Header = () => {
 
         {/* Desktop Nav */}
         <nav className="desktop-nav">
-          <a href="#home" className="menu-link" style={linkStyle}>Home</a>
-          <a href="#about" className="menu-link" style={linkStyle}>About</a>
-          <a href="#portfolio" className="menu-link" style={linkStyle}>Portfolio</a>
-          <a href="#kontak" className="menu-link" style={linkStyle}>Kontak</a>
+          <a href="#" className="menu-link" style={linkStyle} onClick={(e) => e.preventDefault()}>Home</a>
+          <a href="#" className="menu-link" style={linkStyle} onClick={(e) => e.preventDefault()}>About</a>
+          <a href="#" className="menu-link" style={linkStyle} onClick={(e) => e.preventDefault()}>Portfolio</a>
+          <a href="#" className="menu-link" style={linkStyle} onClick={(e) => e.preventDefault()}>Kontak</a>
         </nav>
       </div>
 
       {/* Mobile Flyout Menu */}
       <div className={`mobile-menu ${isMenuOpen ? 'open' : ''}`}>
         <div className="mobile-menu-content">
-          <a href="#home" onClick={() => setIsMenuOpen(false)}>
+          <a href="#" onClick={(e) => { e.preventDefault(); setIsMenuOpen(false); }}>
             {splitText('Home')}
           </a>
-          <a href="#about" onClick={() => setIsMenuOpen(false)}>
-            {splitText('About Us')}
+          <a href="#" onClick={(e) => { e.preventDefault(); setIsMenuOpen(false); }}>
+            {splitText('About')}
           </a>
-          <a href="#portfolio" onClick={() => setIsMenuOpen(false)}>
+          <a href="#" onClick={(e) => { e.preventDefault(); setIsMenuOpen(false); }}>
             {splitText('Portfolio')}
           </a>
-          <a href="#kontak" onClick={() => setIsMenuOpen(false)}>
+          <a href="#" onClick={(e) => { e.preventDefault(); setIsMenuOpen(false); }}>
             {splitText('Kontak')}
           </a>
         </div>
