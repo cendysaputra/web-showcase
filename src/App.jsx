@@ -17,6 +17,48 @@ function App() {
   const textContainerRef = useRef(null)
   const textSectionRef = useRef(null)
   const [textOpacity, setTextOpacity] = useState(0)
+  const hasAutoShownRef = useRef(false)
+
+  // Auto-show popup for first-time visitors
+  useEffect(() => {
+    // Check if popup was already shown
+    const popupShownData = localStorage.getItem('ruangArtefakPopupShown')
+
+    if (popupShownData) {
+      const { timestamp } = JSON.parse(popupShownData)
+      const twoDaysInMs = 2 * 24 * 60 * 60 * 1000 // 2 days in milliseconds
+      const now = Date.now()
+
+      // Check if 2 days have passed
+      if (now - timestamp < twoDaysInMs) {
+        // Session still valid, don't auto-show popup
+        hasAutoShownRef.current = true
+        return
+      }
+    }
+
+    // Auto-show popup after 3 seconds for first-time or expired session
+    if (!hasAutoShownRef.current) {
+      const timer = setTimeout(() => {
+        // Get approximate position at bottom right (where footer text is)
+        const position = {
+          x: window.innerWidth - 100,
+          y: window.innerHeight - 40
+        }
+        setPopupOrigin(position)
+        setIsClosing(false)
+        setShowPopup(true)
+        hasAutoShownRef.current = true
+
+        // Save timestamp to localStorage
+        localStorage.setItem('ruangArtefakPopupShown', JSON.stringify({
+          timestamp: Date.now()
+        }))
+      }, 3000)
+
+      return () => clearTimeout(timer)
+    }
+  }, [])
 
   // Disable browser zoom
   useEffect(() => {
@@ -188,6 +230,14 @@ function App() {
       setPopupOrigin(position)
       setIsClosing(false)
       setShowPopup(true)
+
+      // Update session when manually opened
+      if (!hasAutoShownRef.current) {
+        localStorage.setItem('ruangArtefakPopupShown', JSON.stringify({
+          timestamp: Date.now()
+        }))
+        hasAutoShownRef.current = true
+      }
     }
   }
 
