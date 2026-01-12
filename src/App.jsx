@@ -803,7 +803,6 @@ function App() {
               maxWidth: '1440px',
               width: '100%',
               margin: '0 auto',
-              backgroundColor: '#fff',
               padding: '16px',
               borderRadius: '20px',
               border: '1px solid #1b1b1b',
