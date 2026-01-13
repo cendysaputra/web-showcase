@@ -142,7 +142,7 @@ const Header = () => {
           right: 0;
           width: 100vw;
           height: 100vh;
-          z-index: 100;
+          z-index: 110;
           pointer-events: none;
           overflow: hidden;
         }
@@ -227,7 +227,7 @@ const Header = () => {
           right: 0;
           bottom: 0;
           background-color: rgba(0, 0, 0, 0.5);
-          z-index: 99;
+          z-index: 109;
           opacity: 0;
           pointer-events: none;
           transition: opacity 1s ease;

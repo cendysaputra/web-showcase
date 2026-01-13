@@ -54,3 +54,6 @@ Desktop.ini
 *.temp
 .temp/
 .tmp/
+
+# Documentation (Private)
+AGENTS.md
