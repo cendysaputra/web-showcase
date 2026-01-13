@@ -28,7 +28,7 @@ const Header = () => {
       top: 0,
       left: 0,
       right: 0,
-      zIndex: 1000,
+      zIndex: 9991,
       backgroundColor: 'transparent'
     }}>
       <style>{`
@@ -53,7 +53,7 @@ const Header = () => {
           align-items: center;
           justify-content: space-between;
           position: relative;
-          z-index: 102;
+          z-index: 9991;
         }
         @media (min-width: 768px) {
           .header-container {
@@ -86,7 +86,7 @@ const Header = () => {
           border: none;
           cursor: pointer;
           padding: 8px;
-          z-index: 101;
+          z-index: 9992;
           position: relative;
           width: 40px;
           height: 40px;
@@ -142,7 +142,7 @@ const Header = () => {
           right: 0;
           width: 100vw;
           height: 100vh;
-          z-index: 110;
+          z-index: 9990;
           pointer-events: none;
           overflow: hidden;
         }
@@ -227,7 +227,7 @@ const Header = () => {
           right: 0;
           bottom: 0;
           background-color: rgba(0, 0, 0, 0.5);
-          z-index: 109;
+          z-index: 9989;
           opacity: 0;
           pointer-events: none;
           transition: opacity 1s ease;

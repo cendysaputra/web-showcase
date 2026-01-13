@@ -365,7 +365,7 @@ function App() {
             position: 'fixed',
             bottom: '60px',
             right: '20px',
-            zIndex: 100
+            zIndex: 999
           }}
         >
           <div
