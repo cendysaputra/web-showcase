@@ -7,6 +7,7 @@ import VariableProximity from './components/VariableProximity'
 import RunningText from './components/RunningText'
 import EyeAnimation from './components/EyeAnimation'
 import Folder from './components/Folder'
+import GoogleAnalytics from './components/GoogleAnalytics'
 import cendySaputraLogo from './assets/images/Cendy Saputra.svg'
 import folderImgLeft from './assets/images/folder-img-left.png'
 import folderImgCenter from './assets/images/folder-img-center.png'
@@ -358,6 +359,9 @@ function App() {
 
   return (
     <>
+      {/* Google Analytics */}
+      <GoogleAnalytics />
+
       {/* Popup */}
       {showPopup && (
         <div
