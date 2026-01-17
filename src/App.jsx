@@ -487,11 +487,10 @@ function App() {
           <h1
             className="hero-title"
             style={{
-              /* Original font: 'Mona Sans', sans-serif */
-              fontFamily: "'Press Start 2P', cursive",
+              fontFamily: "'Mona Sans', sans-serif",
               color: '#000',
               margin: 0,
-              fontWeight: 400,
+              fontWeight: 500,
               lineHeight: 1.15,
               letterSpacing: '-1px',
               textAlign: 'center',
@@ -499,7 +498,7 @@ function App() {
               paddingBottom: '20px'
             }}
           >
-            <span className="hero-word" style={{ /* fontFamily: "'Mona Sans', sans-serif" */ fontFamily: "'Press Start 2P', cursive" }}>
+            <span className="hero-word" style={{ fontFamily: "'Mona Sans', sans-serif" }}>
               {'Ruang'.split('').map((char, index) => (
                 <span
                   key={index}
@@ -507,8 +506,7 @@ function App() {
                     display: 'inline-block',
                     overflow: 'hidden',
                     verticalAlign: 'bottom',
-                    /* fontFamily: "'Mona Sans', sans-serif" */
-                    fontFamily: "'Press Start 2P', cursive"
+                    fontFamily: "'Mona Sans', sans-serif"
                   }}
                 >
                   <span
@@ -516,8 +514,7 @@ function App() {
                       display: 'inline-block',
                       animation: `slideUp 0.8s cubic-bezier(0.77, 0, 0.175, 1) ${index * 0.05}s forwards`,
                       transform: 'translateY(100%)',
-                      /* fontFamily: "'Mona Sans', sans-serif" */
-                      fontFamily: "'Press Start 2P', cursive"
+                      fontFamily: "'Mona Sans', sans-serif"
                     }}
                   >
                     {char}
@@ -526,7 +523,7 @@ function App() {
               ))}
             </span>
             {' '}
-            <span className="hero-word" style={{ /* fontFamily: "'Mona Sans', sans-serif" */ fontFamily: "'Press Start 2P', cursive" }}>
+            <span className="hero-word" style={{ fontFamily: "'Mona Sans', sans-serif" }}>
               {'Artefak'.split('').map((char, index) => (
                 <span
                   key={index + 5}
@@ -534,8 +531,7 @@ function App() {
                     display: 'inline-block',
                     overflow: 'hidden',
                     verticalAlign: 'bottom',
-                    /* fontFamily: "'Mona Sans', sans-serif" */
-                    fontFamily: "'Press Start 2P', cursive"
+                    fontFamily: "'Mona Sans', sans-serif"
                   }}
                 >
                   <span
@@ -543,8 +539,7 @@ function App() {
                       display: 'inline-block',
                       animation: `slideUp 0.8s cubic-bezier(0.77, 0, 0.175, 1) ${(index + 6) * 0.05}s forwards`,
                       transform: 'translateY(100%)',
-                      /* fontFamily: "'Mona Sans', sans-serif" */
-                      fontFamily: "'Press Start 2P', cursive"
+                      fontFamily: "'Mona Sans', sans-serif"
                     }}
                   >
                     {char}
@@ -604,19 +599,16 @@ function App() {
 
             /* Responsive Hero Title */
             .hero-title {
-              font-size: 100px;
+              font-size: 180px;
               white-space: nowrap;
-              /* Original: font-family: 'Mona Sans', sans-serif !important; */
-              font-family: 'Press Start 2P', cursive !important;
+              font-family: 'Mona Sans', sans-serif !important;
             }
             .hero-title * {
-              /* Original: font-family: 'Mona Sans', sans-serif !important; */
-              font-family: 'Press Start 2P', cursive !important;
+              font-family: 'Mona Sans', sans-serif !important;
             }
             .hero-word {
               display: inline-block;
-              /* Original: font-family: 'Mona Sans', sans-serif !important; */
-              font-family: 'Press Start 2P', cursive !important;
+              font-family: 'Mona Sans', sans-serif !important;
             }
             @media (max-width: 1199px) {
               .hero-title {
