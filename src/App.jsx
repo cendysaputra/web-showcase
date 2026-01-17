@@ -485,17 +485,18 @@ function App() {
             }}
           />
           <h1
-            className="hero-title"
+            className="hero-title shiny-text"
             style={{
               fontFamily: "'Mona Sans', sans-serif",
               color: '#000',
               margin: 0,
-              fontWeight: 500,
+              fontWeight: 700,
               lineHeight: 1.15,
               letterSpacing: '-1px',
               textAlign: 'center',
               overflow: 'visible',
-              paddingBottom: '20px'
+              paddingBottom: '20px',
+              position: 'relative'
             }}
           >
             <span className="hero-word" style={{ fontFamily: "'Mona Sans', sans-serif" }}>
@@ -571,7 +572,7 @@ function App() {
             /* Responsive Eye Animation */
             .eye-animation {
               width: 90px;
-              left: calc(50% - 340px);
+              left: calc(50% - 350px);
               top: 60px;
               animation: fadeIn 0.8s cubic-bezier(0.77, 0, 0.175, 1) 0.5s forwards;
             }
@@ -609,6 +610,29 @@ function App() {
             .hero-word {
               display: inline-block;
               font-family: 'Mona Sans', sans-serif !important;
+            }
+
+            /* Shiny Text Effect */
+            .shiny-text::before {
+              content: '';
+              position: absolute;
+              top: 0;
+              left: -100%;
+              width: 100%;
+              height: 100%;
+              background: linear-gradient(90deg,
+                transparent 0%,
+                rgba(255, 255, 255, 0.3) 45%,
+                rgba(255, 255, 255, 0.8) 50%,
+                rgba(255, 255, 255, 0.3) 55%,
+                transparent 100%);
+              animation: shineMove 4s ease-in-out infinite;
+              pointer-events: none;
+              z-index: 1;
+            }
+            .shiny-text > * {
+              position: relative;
+              z-index: 0;
             }
             @media (max-width: 1199px) {
               .hero-title {
@@ -704,6 +728,14 @@ function App() {
               }
               to {
                 opacity: 1;
+              }
+            }
+            @keyframes shineMove {
+              0% {
+                left: -100%;
+              }
+              100% {
+                left: 100%;
               }
             }
             @keyframes fadeOut {
