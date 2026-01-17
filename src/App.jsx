@@ -494,7 +494,7 @@ function App() {
               lineHeight: 1.15,
               letterSpacing: '-1px',
               textAlign: 'center',
-              overflow: 'visible',
+              overflow: 'hidden',
               paddingBottom: '20px',
               position: 'relative'
             }}
@@ -613,20 +613,25 @@ function App() {
             }
 
             /* Shiny Text Effect */
+            .shiny-text {
+              overflow: hidden;
+              position: relative;
+            }
             .shiny-text::before {
               content: '';
               position: absolute;
-              top: 0;
+              top: -100%;
               left: -100%;
-              width: 100%;
-              height: 100%;
-              background: linear-gradient(90deg,
+              width: 200%;
+              height: 200%;
+              background: linear-gradient(135deg,
                 transparent 0%,
-                rgba(255, 255, 255, 0.3) 45%,
-                rgba(255, 255, 255, 0.8) 50%,
-                rgba(255, 255, 255, 0.3) 55%,
+                rgba(255, 255, 255, 0.1) 45%,
+                rgba(255, 255, 255, 0.3) 50%,
+                rgba(255, 255, 255, 0.1) 55%,
                 transparent 100%);
-              animation: shineMove 4s ease-in-out infinite;
+              animation: shineMove 8s ease-in-out infinite;
+              animation-delay: 2s;
               pointer-events: none;
               z-index: 1;
             }
@@ -732,9 +737,11 @@ function App() {
             }
             @keyframes shineMove {
               0% {
+                top: -100%;
                 left: -100%;
               }
               100% {
+                top: 100%;
                 left: 100%;
               }
             }
