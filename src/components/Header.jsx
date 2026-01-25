@@ -273,7 +273,7 @@ const Header = () => {
           <a href="#" className="menu-link" style={linkStyle} onClick={(e) => e.preventDefault()}>Home</a>
           <a href="#" className="menu-link" style={linkStyle} onClick={(e) => e.preventDefault()}>About</a>
           <a href="#" className="menu-link" style={linkStyle} onClick={(e) => e.preventDefault()}>Portfolio</a>
-          <a href="#" className="menu-link" style={linkStyle} onClick={(e) => e.preventDefault()}>Kontak</a>
+
         </nav>
       </div>
 
@@ -289,9 +289,7 @@ const Header = () => {
           <a href="#" onClick={(e) => { e.preventDefault(); setIsMenuOpen(false); }}>
             {splitText('Portfolio')}
           </a>
-          <a href="#" onClick={(e) => { e.preventDefault(); setIsMenuOpen(false); }}>
-            {splitText('Kontak')}
-          </a>
+
         </div>
       </div>
     </header>
