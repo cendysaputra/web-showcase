@@ -1168,7 +1168,7 @@ function App() {
                 display: "flex",
                 justifyContent: "flex-end",
                 alignItems: "flex-end",
-                paddingRight: "80px",
+                paddingRight: "100px",
                 paddingBottom: "0",
               }}
             >
@@ -1182,7 +1182,7 @@ function App() {
               >
                 <Folder
                   color="#ff4000"
-                  size={1.6}
+                  size={1.9}
                   className="custom-folder"
                   open={folderOpen}
                   items={[
