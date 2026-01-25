@@ -34,7 +34,6 @@ body {
   text-size-adjust: 100%;
   touch-action: manipulation;
   -ms-touch-action: manipulation;
-  position: fixed;
   position: relative;
 }
 

@@ -7,6 +7,26 @@
     <meta name="HandheldFriendly" content="true" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Ruang Artefak - Portfolio visual oleh Cendy Saputra. Setiap proyek adalah cerita yang layak diabadikan melalui UI/UX, Graphic Design, 3D Modeling, dan Web Development." />
+    <meta name="keywords" content="Cendy Saputra, UI/UX Designer, Graphic Design, 3D Modeling, Web Developer, Portfolio, Ruang Artefak" />
+    <meta name="author" content="Cendy Saputra" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://cendysaputra.com/" />
+    <meta property="og:title" content="Cendy Saputra - Ruang Artefak" />
+    <meta property="og:description" content="Portfolio visual oleh Cendy Saputra. Setiap proyek adalah cerita yang layak diabadikan melalui UI/UX, Graphic Design, 3D Modeling, dan Web Development." />
+    <meta property="og:image" content="/src/assets/images/og-image.png" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://cendysaputra.com/" />
+    <meta property="twitter:title" content="Cendy Saputra - Ruang Artefak" />
+    <meta property="twitter:description" content="Portfolio visual oleh Cendy Saputra. Setiap proyek adalah cerita yang layak diabadikan." />
+    <meta property="twitter:image" content="/src/assets/images/og-image.png" />
+
     <title>Cendy Saputra - Ruang Artefak</title>
     <style>
       * {
@@ -16,18 +36,19 @@
         touch-action: manipulation;
       }
     </style>
-   <!-- Google Analytics -->
-      <script async src="https://www.googletagmanager.com/gtag/js?id=G-KGG7PHT646"></script>
-      <script>
-         window.dataLayer = window.dataLayer || [];
-         function gtag(){dataLayer.push(arguments);}
-         window.gtag = gtag;
-         gtag('js', new Date());
-         gtag('config', 'G-KGG7PHT646');
-      </script>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KGG7PHT646"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      window.gtag = gtag;
+      gtag("js", new Date());
+      gtag("config", "G-KGG7PHT646");
+    </script>
   </head>
-  </head>
-  <body style="margin: 0; padding: 0; background-color: #FFF;">
+  <body style="margin: 0; padding: 0; background-color: #fff">
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
