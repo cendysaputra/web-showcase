@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import "@fontsource/bricolage-grotesque/600.css";
 import Lenis from "@studio-freight/lenis";
 import DotGrid from "./components/DotGrid";
 import Header from "./components/Header";
@@ -474,19 +475,19 @@ function App() {
             <h1
               className="hero-title shiny-text"
               style={{
-                fontFamily: "'Mona Sans', sans-serif",
+                fontFamily: "'Bricolage Grotesque', sans-serif",
                 color: "#000",
                 margin: 0,
-                fontWeight: 700,
-                lineHeight: 1.15,
-                letterSpacing: "-1px",
+                fontWeight: 600,
+                lineHeight: 1.0,
+                letterSpacing: "-0.03em",
                 textAlign: "center",
                 overflow: "hidden",
                 paddingBottom: "20px",
                 position: "relative",
               }}
             >
-              <span className="hero-word" style={{ fontFamily: "'Mona Sans', sans-serif" }}>
+              <span className="hero-word" style={{ fontFamily: "'Bricolage Grotesque', sans-serif" }}>
                 {"Ruang".split("").map((char, index) => (
                   <span
                     key={index}
@@ -494,7 +495,7 @@ function App() {
                       display: "inline-block",
                       overflow: "hidden",
                       verticalAlign: "bottom",
-                      fontFamily: "'Mona Sans', sans-serif",
+                      fontFamily: "'Bricolage Grotesque', sans-serif",
                     }}
                   >
                     <span
@@ -502,7 +503,7 @@ function App() {
                         display: "inline-block",
                         animation: `slideUp 0.8s cubic-bezier(0.77, 0, 0.175, 1) ${index * 0.05}s forwards`,
                         transform: "translateY(100%)",
-                        fontFamily: "'Mona Sans', sans-serif",
+                        fontFamily: "'Bricolage Grotesque', sans-serif",
                       }}
                     >
                       {char}
@@ -510,7 +511,7 @@ function App() {
                   </span>
                 ))}
               </span>{" "}
-              <span className="hero-word" style={{ fontFamily: "'Mona Sans', sans-serif" }}>
+              <span className="hero-word" style={{ fontFamily: "'Bricolage Grotesque', sans-serif" }}>
                 {"Artefak".split("").map((char, index) => (
                   <span
                     key={index + 5}
@@ -518,7 +519,7 @@ function App() {
                       display: "inline-block",
                       overflow: "hidden",
                       verticalAlign: "bottom",
-                      fontFamily: "'Mona Sans', sans-serif",
+                      fontFamily: "'Bricolage Grotesque', sans-serif",
                     }}
                   >
                     <span
@@ -526,7 +527,7 @@ function App() {
                         display: "inline-block",
                         animation: `slideUp 0.8s cubic-bezier(0.77, 0, 0.175, 1) ${(index + 6) * 0.05}s forwards`,
                         transform: "translateY(100%)",
-                        fontFamily: "'Mona Sans', sans-serif",
+                        fontFamily: "'Bricolage Grotesque', sans-serif",
                       }}
                     >
                       {char}
@@ -558,7 +559,7 @@ function App() {
             /* Responsive Eye Animation */
             .eye-animation {
               width: 90px;
-              left: calc(50% - 350px);
+              left: calc(50% - 380px);
               top: 60px;
               animation: fadeIn 0.8s cubic-bezier(0.77, 0, 0.175, 1) 0.5s forwards;
             }
@@ -586,16 +587,16 @@ function App() {
 
             /* Responsive Hero Title */
             .hero-title {
-              font-size: 180px;
+              font-size: 200px;
               white-space: nowrap;
-              font-family: 'Mona Sans', sans-serif !important;
+              font-family: 'Bricolage Grotesque', sans-serif !important;
             }
             .hero-title * {
-              font-family: 'Mona Sans', sans-serif !important;
+              font-family: 'Bricolage Grotesque', sans-serif !important;
             }
             .hero-word {
               display: inline-block;
-              font-family: 'Mona Sans', sans-serif !important;
+              font-family: 'Bricolage Grotesque', sans-serif !important;
             }
 
             /* Shiny Text Effect */

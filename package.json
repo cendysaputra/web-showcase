@@ -21,6 +21,7 @@
   "description": "",
   "dependencies": {
     "@fontsource-variable/mona-sans": "^5.2.8",
+    "@fontsource/bricolage-grotesque": "^5.2.10",
     "@fontsource/mona-sans": "^5.2.8",
     "@studio-freight/lenis": "^1.0.42",
     "@vitejs/plugin-react": "^5.1.2",
