@@ -1,5 +1,4 @@
 import { useRef, useEffect, useState, useMemo, useId } from 'react';
-import flowerIcon from '../assets/images/flower.svg';
 
 const CurvedLoop = ({
   marqueeText = '',
@@ -10,10 +9,11 @@ const CurvedLoop = ({
   interactive = true,
   textColor = '#f5f5f5'
 }) => {
-  // Split text by the bullet point to insert flower icons
-  const textParts = useMemo(() => {
+  const text = useMemo(() => {
+    // Basic text cleaning, ensure single space at end for spacing if needed
+    // We are now just using straight text without complex splitting since we are reverting separator
     const cleanText = marqueeText.replace(/\s+$/, '');
-    return cleanText.split('•');
+    return cleanText + ' • '; // Add bullet separator at the end of each block
   }, [marqueeText]);
 
   const measureRef = useRef(null);
@@ -24,95 +24,110 @@ const CurvedLoop = ({
   const [offset, setOffset] = useState(0);
   const uid = useId();
   const pathId = `curve-${uid}`;
-  const patternId = `flower-pattern-${uid}`;
   const pathD = `M-500,${startY} Q720,${startY + curveAmount} 1940,${startY}`; 
 
   const dragRef = useRef(false);
   const lastXRef = useRef(0);
   const dirRef = useRef(direction);
-  const velRef = useRef(0);
-
-  // We need to render the content structure once to measure it, then repeat it
-  // The structure is: Part + Space + Flower(as block char) + Space ...
-  const ContentUnit = () => (
-    <>
-      {textParts.map((part, index) => (
-        <tspan key={index}>
-          {part}
-          {index < textParts.length - 1 && (
-            <>
-              <tspan dx="15"> </tspan>
-              <tspan 
-                fill={`url(#${patternId})`} 
-                fontWeight="normal" 
-                dy="20"
-                style={{ fontSize: '0.8em', fontFamily: 'Arial, sans-serif' }}
-              >
-                ●
-              </tspan>
-              <tspan dy="-20" dx="15"> </tspan>
-            </>
-          )}
-           {/* Add separator at the end if it's the loop connector, BUT we usually want a seamless loop.
-               The hasTrailing logic in original code added a non-breaking space.
-               Here we probably want a flower between the last item and the first item of next loop?
-               The original 'text' had a trailing space/char.
-            */}
-        </tspan>
-      ))}
-      <tspan dx="15"> </tspan>
-      <tspan 
-        fill={`url(#${patternId})`} 
-        fontWeight="normal" 
-        dy="20"
-        style={{ fontSize: '0.8em', fontFamily: 'Arial, sans-serif' }}
-      >
-        ●
-      </tspan>
-      <tspan dy="-20" dx="15"> </tspan>
-    </>
-  );
+  // Using pure velocity/offset state to manage movement for smoothness
+  // Instead of requestAnimationFrame logic sometimes lagging, we simplify.
+  
+  // To handle smooth loop, we need a LONG string of repeated text.
+  
+  // Calculate repetitions needed to fill a very long path
+  // If path width is ~2440 (from -500 to 1940), and we want buffer.
+  // We need enough text to cover e.g. 5000px.
+  
+  const widthToCover = 5000;
 
   useEffect(() => {
     if (measureRef.current) {
         setSpacing(measureRef.current.getComputedTextLength());
     }
-  }, [textParts, className]);
+  }, [text, className]);
+
+  // Construct the long repeated text string
+  const totalText = useMemo(() => {
+    if (!spacing) return text;
+    const count = Math.ceil(widthToCover / spacing) + 2;
+    return new Array(count).fill(text).join('');
+  }, [text, spacing]);
 
   useEffect(() => {
     if (!spacing) return;
+    // Set initial offset to hide the startup jump if possible, or just start at 0
+    // Actually, starting at -spacing helps smoothness if we append text
     if (textPathRef.current) {
-      const initial = -spacing;
-      textPathRef.current.setAttribute('startOffset', initial + 'px');
-      setOffset(initial);
+      setOffset(-spacing); 
     }
   }, [spacing]);
 
   useEffect(() => {
     if (!spacing) return;
-    let frame = 0;
-    const step = () => {
+    
+    let animationFrameId;
+    let lastTime = performance.now();
+    
+    const animate = (time) => {
+      // Calculate delta time for smoother speed regardless of frame rate drops
+      // But for simple marquee, fixed step is often smoother visually than delta-time if frame rate jitters slightly.
+      // However, if "sometimes fast sometimes slow" -> browser throttling or variable FPS.
+      // We will stick to simple increment per frame for consistency, or use delta if major lags.
+      // Since user complaining about jitter, "uneven speed", let's try fixed increment first but ensure no heavy processing.
+      
+      // Check drag
       if (!dragRef.current && textPathRef.current) {
-        const delta = dirRef.current === 'right' ? speed : -speed;
-        const currentOffset = parseFloat(textPathRef.current.getAttribute('startOffset') || '0');
-        let newOffset = currentOffset + delta;
-        const wrapPoint = spacing;
-        if (newOffset <= -wrapPoint) newOffset += wrapPoint;
-        if (newOffset > 0) newOffset -= wrapPoint;
-        textPathRef.current.setAttribute('startOffset', newOffset + 'px');
-        setOffset(newOffset);
+         // Simply update the offset ref value (using closure variable or ref)
+         // We use setOffset state less frequently? No, we manipulate DOM directly for performance, 
+         // and only sync state if needed (or not at all).
+         
+         const currentOffset = parseFloat(textPathRef.current.getAttribute('startOffset') || '0');
+         const delta = dirRef.current === 'right' ? speed : -speed;
+         
+         let newOffset = currentOffset + delta;
+         
+         // Loop logic
+         // If we moved left (-spacing), we reset to 0? 
+         // Text moves left (negative offset).
+         // When offset reaches -spacing (one full text block moved out), we shift it back by +spacing to loop.
+         // Wait. Initial offset is -spacing. Speed is positive? No, default direction 'left'.
+         // If direction left, delta should be negative.
+         // If offset becomes < -2 * spacing, we add spacing?
+         
+         // Let's visualize: 
+         // [Text1][Text2][Text3]...
+         // Viewport sees part of it.
+         // Move left -> offset decreases.
+         // When [Text1] is fully gone (offset decreased by 'spacing'), [Text2] is where [Text1] was.
+         // So we can jump 'offset += spacing' without visual change.
+         
+         const wrapThreshold = -spacing * 2; // threshold to reset
+         
+         // Ensure logic handles wrap seamlessly
+         if (delta < 0) { // Moving Left
+             if (newOffset <= wrapThreshold) {
+                 newOffset += spacing;
+             }
+         } else { // Moving Right
+             if (newOffset >= 0) {
+                 newOffset -= spacing;
+             }
+         }
+
+         textPathRef.current.setAttribute('startOffset', newOffset + 'px');
       }
-      frame = requestAnimationFrame(step);
+      
+      animationFrameId = requestAnimationFrame(animate);
     };
-    frame = requestAnimationFrame(step);
-    return () => cancelAnimationFrame(frame);
-  }, [spacing, speed]);
+    
+    animationFrameId = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(animationFrameId);
+  }, [spacing, speed]); // Removed 'ready' dependency to avoid restarts
 
   const onPointerDown = e => {
     if (!interactive) return;
     dragRef.current = true;
     lastXRef.current = e.clientX;
-    velRef.current = 0;
     e.target.setPointerCapture(e.pointerId);
   };
 
@@ -120,27 +135,19 @@ const CurvedLoop = ({
     if (!interactive || !dragRef.current || !textPathRef.current) return;
     const dx = e.clientX - lastXRef.current;
     lastXRef.current = e.clientX;
-    velRef.current = dx;
     const currentOffset = parseFloat(textPathRef.current.getAttribute('startOffset') || '0');
     let newOffset = currentOffset + dx;
-    const wrapPoint = spacing;
-    if (newOffset <= -wrapPoint) newOffset += wrapPoint;
-    if (newOffset > 0) newOffset -= wrapPoint;
     textPathRef.current.setAttribute('startOffset', newOffset + 'px');
-    setOffset(newOffset);
   };
 
   const endDrag = () => {
     if (!interactive) return;
     dragRef.current = false;
-    dirRef.current = velRef.current > 0 ? 'right' : 'left';
+    // Determine direction based on drag? Or keep original?
+    // User didn't ask for physics. Keep simple.
   };
 
-  const cursorStyle = interactive ? (dragRef.current ? 'grabbing' : 'grab') : 'auto';
-  
-  // Calculate how many times to repeat based on spacing
-  const repeatCount = spacing ? Math.ceil(5000 / spacing) + 2 : 1;
-  const loopArray = Array.from({ length: repeatCount });
+  const cursorStyle = interactive ? (dragRef.current ? 'grabbing' : 'grab') : 'default';
 
   return (
     <div
@@ -157,13 +164,10 @@ const CurvedLoop = ({
         style={{ height: '100%', width: '100%' }}
       >
         <defs>
-          <path ref={pathRef} id={pathId} d={pathD} fill="none" stroke="transparent" />
-          <pattern id={patternId} width="1" height="1" viewBox="0 0 100 100" patternUnits="objectBoundingBox">
-             <image href={flowerIcon} x="0" y="0" width="100" height="100" preserveAspectRatio="xMidYMid meet" />
-          </pattern>
+            <path ref={pathRef} id={pathId} d={pathD} fill="none" stroke="transparent" />
         </defs>
 
-        {/* Hidden text to measure width */}
+        {/* Hidden text to measure single block width */}
         <text 
           ref={measureRef} 
           xmlSpace="preserve" 
@@ -176,7 +180,7 @@ const CurvedLoop = ({
             fontWeight: 600
           }}
         >
-          <ContentUnit />
+          {text} 
         </text>
         
         {spacing > 0 && (
@@ -191,9 +195,7 @@ const CurvedLoop = ({
             }}
           >
             <textPath ref={textPathRef} href={`#${pathId}`} startOffset={offset + 'px'} xmlSpace="preserve">
-              {loopArray.map((_, i) => (
-                 <ContentUnit key={i} />
-              ))}
+              {totalText}
             </textPath>
           </text>
         )}
