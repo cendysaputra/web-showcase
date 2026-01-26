@@ -5,7 +5,8 @@ import DotGrid from "./components/DotGrid";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import VariableProximity from "./components/VariableProximity";
-import RunningText from "./components/RunningText";
+import CurvedLoop from "./components/CurvedLoop";
+// import RunningText from "./components/RunningText";
 import EyeAnimation from "./components/EyeAnimation";
 import Folder from "./components/Folder";
 import SvgTextDraw from "./components/SvgTextDraw";
@@ -1063,7 +1064,16 @@ function App() {
         `}</style>
 
         {/* Running Text Section */}
-        <RunningText text="UI/UX • Graphic Design • 3D Modeling • Wordpress Developer • Frontend Web Developer" speed={50} />
+        {/* Curved Text Section */}
+        <div style={{ fontFamily: "'Bricolage Grotesque', sans-serif" }}>
+            <CurvedLoop 
+              marqueeText="UI/UX • Graphic Design • 3D Modeling • Wordpress Developer • Frontend Web Developer" 
+              speed={0.7} 
+              curveAmount={350} 
+              interactive={false}
+              textColor="#f5f5f5"
+            />
+        </div>
 
         {/* Two Column Section */}
         <div
