@@ -10,6 +10,7 @@ import CurvedLoop from "./components/CurvedLoop";
 import EyeAnimation from "./components/EyeAnimation";
 import Folder from "./components/Folder";
 import SvgTextDraw from "./components/SvgTextDraw";
+
 import cendySaputraLogo from "./assets/images/Cendy Saputra.svg";
 import folderImgLeft from "./assets/images/folder-img-left.png";
 import folderImgCenter from "./assets/images/folder-img-center.png";
@@ -444,9 +445,6 @@ function App() {
       {/* Konten utama - atas background */}
       <div className="relative">
         <Header />
-
-        {/* New 100vh Section below Cense (Header) */}
-        <div style={{ height: "100vh", width: "100%", position: "relative", zIndex: 10 }}></div>
 
         {/* Hero Banner */}
         <div
