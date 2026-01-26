@@ -958,11 +958,12 @@ function App() {
           style={{
             position: "relative",
             zIndex: 100,
-            minHeight: "100vh",
+            position: "relative",
+            zIndex: 100,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            padding: "0 20px",
+            padding: "100px 20px",
           }}
         >
           <div
@@ -1034,9 +1035,6 @@ function App() {
         </div>
         <style>{`
           /* Responsive Text Section */
-          .text-section-container {
-            min-height: 100vh;
-          }
           .text-section-paragraph {
             font-size: 40px;
           }
@@ -1049,27 +1047,21 @@ function App() {
             .text-section-paragraph {
               font-size: 28px !important;
             }
-            .text-section-container {
-              min-height: 80vh;
-            }
           }
           @media (max-width: 480px) {
             .text-section-paragraph {
               font-size: 24px !important;
-            }
-            .text-section-container {
-              min-height: 70vh;
             }
           }
         `}</style>
 
         {/* Running Text Section */}
         {/* Curved Text Section */}
-        <div style={{ fontFamily: "'Bricolage Grotesque', sans-serif" }}>
+        <div style={{ fontFamily: "'Bricolage Grotesque', sans-serif", paddingBottom: "120px" }}>
             <CurvedLoop 
               marqueeText="UI/UX • Graphic Design • 3D Modeling • Wordpress Developer • Frontend Web Developer" 
               speed={0.7} 
-              curveAmount={350} 
+              curveAmount={600} 
               interactive={false}
               textColor="#f5f5f5"
             />
