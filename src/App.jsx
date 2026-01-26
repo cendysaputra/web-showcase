@@ -963,7 +963,7 @@ function App() {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            padding: "100px 20px",
+            padding: "240px 20px 40px",
           }}
         >
           <div
@@ -1057,7 +1057,7 @@ function App() {
 
         {/* Running Text Section */}
         {/* Curved Text Section */}
-        <div style={{ fontFamily: "'Bricolage Grotesque', sans-serif", paddingBottom: "120px" }}>
+        <div style={{ fontFamily: "'Bricolage Grotesque', sans-serif", paddingBottom: "40px" }}>
             <CurvedLoop 
               marqueeText="UI/UX • Graphic Design • 3D Modeling • Wordpress Developer • Frontend Web Developer" 
               speed={0.7} 
