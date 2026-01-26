@@ -445,6 +445,9 @@ function App() {
       <div className="relative">
         <Header />
 
+        {/* New 100vh Section below Cense (Header) */}
+        <div style={{ height: "100vh", width: "100%", position: "relative", zIndex: 10 }}></div>
+
         {/* Hero Banner */}
         <div
           className="hero-banner"
@@ -1241,6 +1244,8 @@ function App() {
           }
         `}</style>
       </div>
+
+
 
       {/* SVG Text Drawing Section */}
       <SvgTextDraw />
